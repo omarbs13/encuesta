@@ -1,0 +1,172 @@
+﻿
+@{
+    ViewBag.Title = "Usuario";
+    Layout = "~/Views/Shared/_LayoutSum.cshtml";
+}
+
+<h2>Usuario</h2>
+
+<main class="pt-3 mx-lg-5">
+    <div class="container-fluid mt-3">
+        <!-- Heading -->
+        <div class="card mb-4 wow fadeIn">
+            <!--Card content-->
+            <div class="card-body d-sm-flex justify-content-between">
+                <h4 class="mb-2 mb-sm-0 pt-1">
+                    Encuesta
+                </h4>
+            </div>
+
+        </div>
+
+        <form>
+            <div class="jumbotron">
+                <label style="font-weight: bold;">1. ¿DESDE HACE CUANTO ESTAS CONSIDERANDO TU SALIDA DE SUMATE? </label><br />
+                <div class="col-md-2">
+                    <label class="radio">
+                        <input type="radio" name="pregunta1" id="sb1" value="Menos de un mes"> Menos de un mes
+                    </label>
+                </div>
+                <div class="col-md-2">
+                    <label class="radio">
+                        <input type="radio" name="pregunta1" id="sb2" value="Entre 1 y 3 meses"> Entre 1 y 3 meses
+                    </label>
+                </div>
+                <div class="col-md-2">
+                    <label class="radio">
+                        <input type="radio" name="pregunta1" id="sb3" value="3 y 6 meses"> 3 y 6 meses
+                    </label>
+                </div>
+                <div class="col-md-2">
+                    <label class="radio">
+                        <input type="radio" name="pregunta1" id="sb4" value="Mas de 6 meses"> Mas de 6 meses
+                    </label>
+                </div>
+                <br />
+                <button type="button" class="btn btn-light-green" id="" onclick="" @*style="left:1300px;"*@>Siguiente</button>
+                @*<button type="button" class="btn btn-danger" id="clearForm">Limpiar formulario</button>*@
+
+            </div>
+
+            <div class="jumbotron">
+            <label style="font-weight: bold;">2. ¿POR QUE DECIDES RETIRARTE DE SUMATE? </label><br />
+            <div class="col-md-3">
+
+                <select class="form-control" id="pregunta2"> 
+                <option id="escoger" SELECTED Onchage =jump(this.value)>Seleciona...</option>
+                    <option value="">Un puesto mejor </option>
+                    <option value="">Un sueldo o Ingreso mejor </option>
+                    <option value="">Un mejor salario </option>
+                    <option value="">Mayores Responsabilidades </option>
+                    <option value="">Por cambio de Residencia </option>
+                    <option value="">Por Estudios </option>
+                    <option value="">Por motivos familiares </option>
+                    <option value="">Por Desmotivacion </option>
+                    <option value="">Por relacion con jefe o superiores </option>
+                    <option value="">Por relaciones con mis compañeros </option>
+                    <option value="">Necesito un cambio </option>
+                    <option value="">Otros beneficios sociales </option>
+
+                </select>
+            </div>
+        </div>
+
+
+        <div class="jumbotron">
+            <label style="font-weight: bold;">3. ¿CUAL ES TU GRADO DE SATISFACCION? </label><br />
+            <div class="col-md-3">
+                <select class="form-control" id="pregunta3">
+                    <option id="escoger" SELECTED>Seleciona...</option>
+                    <option value="">Salario </option>
+                    <option value="">Incentivos  </option>
+                    <option value="">Capacitacion </option>
+                    <option value="">Ambiente de Trabajo </option>
+                    <option value="">Cargas de Trabajo </option>
+                    <option value="">Posibilidades de Ascenso </option>
+                    <option value="">Reconocimiento </option>
+                    <option value="">Relacion con jefe inmediato </option>
+                    <option value="">Relacion con Superior </option>
+                    <option value="">Herramientas de trabajo </option>
+                    <option value="">Procesos de trabajo </option>
+                    <option value="">Personal de apoyo en su trabajo </option>
+
+                </select>
+            </div>
+        </div>
+
+
+        <div class="jumbotron">
+            <label style="font-weight: bold;">4. ¿CREES QUE EN TU PASO POR FINANCIERA SUMATE HAS GENERADO VALOR A TU PUESTO O LA EMPRESA? </label><br />
+            <div class="col-md-2">
+                <label class="radio">
+                    <input type="radio" name="pregunta4" id="pregunta1a" value="SI"> Si
+                </label>
+            </div>
+            <div class="col-md-2">
+                <label class="radio">
+                    <input type="radio" name="pregunta4" id="preguntab" value="NO"> No
+                </label>
+            </div>
+            <div class="col-md-2">
+                <label class="radio">
+                    <input type="radio" name="pregunta4" id="preguntac" value="NA"> No estoy seguro
+                </label>
+            </div>
+        </div>
+
+        <div class="jumbotron">
+            <label style="font-weight: bold;">5. ¿TU PASO POR FINANCIERA SUMATE TE HA AGREADO VALOR? </label><br />
+            <div class="col-md-2">
+                <label class="radio">
+                    <input type="radio" name="pregunta5" id="pregunta1a" value="NA"> Si
+                </label>
+            </div>
+            <div class="col-md-2">
+                <label class="radio">
+                    <input type="radio" name="pregunta5" id="preguntab" value="NA"> No
+                </label>
+            </div>
+            <div class="col-md-2">
+                <label class="radio">
+                    <input type="radio" name="pregunta5" id="preguntac" value="NA"> No estoy seguro
+                </label>
+            </div>
+        </div>
+
+        <div class="jumbotron">
+            <label style="font-weight: bold;">6. ¿RECOMENDARIAS A ALGUN FAMILIAR O AMIGO PARA TRABAJAR EN SUMATE? </label><br />
+            <div class="col-md-2">
+                <label class="radio">
+                    <input type="radio" name="pregunta6" id="pregunta1a" value="NA"> Si
+                </label>
+            </div>
+            <div class="col-md-2">
+                <label class="radio">
+                    <input type="radio" name="pregunta6" id="preguntab" value="NA"> No
+                </label>
+            </div>
+            <div class="col-md-2">
+                <label class="radio">
+                    <input type="radio" name="pregunta6" id="preguntac" value="NA"> No estoy seguro
+                </label>
+            </div>
+        </div>
+
+        <div class="jumbotron">
+            <div class="col-md-4">
+                <label style="font-weight: bold;">7. ¿ALGUNA SUGERENCIA PARA MEJORAR? </label><br />
+                <div class="form-group">
+                    <textarea class="form-control" id="Sugerencia" rows="6"></textarea>
+                </div>
+            </div><br />
+
+            </div>
+            @*<div class="col-md-4">
+            <button type="button" class="btn btn-info" id="saveForm" onclick="saveForm">Guardar Encuesta</button>
+            <button type="button" class="btn btn-danger" id="clearForm">Limpiar formulario</button>
+        </div>*@
+
+        </form>
+        @*<hr />*@
+    </div>
+</main>

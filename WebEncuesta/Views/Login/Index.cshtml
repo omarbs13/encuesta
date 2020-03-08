@@ -1,0 +1,163 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <link href="~/Content/fonts/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <link href="~/Content/MyStyle.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div align="center">
+        <img class="imagen" src="~/Content/imagotipo oficial-01.png" />
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading" style="background-color:#FFB718">
+                        <h2 class="panel-title" align="center" style="color:black"><strong>Inicia Sesión</strong></h2>
+                    </div>
+                    <form method="post">
+                        <div class="panel-body" style="background-color: #D9E6DF;">
+
+                            <div class="form-group" style="padding:5px 7px 0px 25px;">
+                                <label>Usuario</label>   <span class="glyphicon glyphicon-user"></span>
+                                <input class="form-control" placeholder="Inserte email" name="usuario" type="email" id="Usuario" value="" autofocus>
+                            </div>
+                            <div class="form-group" style="padding:5px 7px 0px 25px;">
+                                <label>Contraseña</label>   <span class="glyphicon glyphicon-asterisk"></span>
+                                <input class="form-control" placeholder="Inserte contraseña" name="password" type="password" id="Password" value="">
+                            </div>
+                            <div class="form-group" style="padding:5px 7px 0px 183px;">
+                                <button class="btn btn-lg" onclick="tryapicall()" type="button" style="color:white; background:#006140" value=""><span class="glyphicon glyphicon-log-in"></span>  Ingresar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="text-center">
+        <p align="center" style="padding:160px 7px 0px 45px; color:black">
+            © 2019 Copyright:              Todos los derechos reservados.
+            FINANCIERA SÚMATE® S.A de C.V S.F.P.
+        </p>
+    </footer>
+
+    <!-- Modal Error -->
+    <div class="modal fade" id="mi-modal" tabindex="-80" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLongTitle" style="color:red">Error!</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" align="center">
+                    <h5>Usuario y Contraseña no existe</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Entrada Denegada -->
+    <div class="modal fade" id="exampleModalLong" tabindex="-80" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLongTitle" style="color:red">Entrada Denegada</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" align="center">
+                    <h5>Usuario o Contraseña no validos</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal usuario y contraseña no existente -->
+    <div class="modal fade" id="example" tabindex="-80" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLongTitle" style="color:red">Campos Vacios!</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" align="center">
+                    <h5>Ingresar Usuario y Contraseña</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        function tryapicall() {
+
+            var name = $.trim($("[id*=Usuario]").val());
+            var pwd = $.trim($("[id*=Password]").val());
+
+            if (name != '' && pwd != '') {
+                $.ajax({
+                    url: "Login/PostLogin?Usuario=" + name + "&Password=" + pwd,
+                    type: "POST",
+                    contentType: "application/json",
+                    dataType: "text",
+                    success: function (res) {
+                        if (res == "Bienvenido") {
+                            window.location.href = '@Url.Action("Page", "AdminPage")';
+                        }
+                        else if (res == "Entrada Denegada") {
+                            $('#myModalLabel');
+                            $("#exampleModalLong").modal('show');
+                        }
+                        else if (res != " ") {
+                            $('#myModalLabel');
+                            $("#mi-modal").modal('show');
+                        }
+                    },
+                    error: function (res) {
+                        if (res != " ") {
+                            $('#myModalLabel').append('<h5>Error de servicio</h5>');
+                            $("#mi-modal").modal('show');
+                        }
+                    }
+
+                });
+            }
+            else {
+                $('#myModalLabel');
+                $("#example").modal('show');
+            }
+        }
+
+    </script>
+
+
+</body>
+
+</html>

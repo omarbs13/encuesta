@@ -1,0 +1,81 @@
+﻿@model IEnumerable<WebEncuesta.Models.Pregunta>
+
+@{
+    ViewBag.Title = "EnPage";
+    Layout = "~/Views/Shared/_LayoutSum.cshtml";
+}
+
+<h2>EnPage</h2>
+
+<main class="pt-3 mx-lg-5">
+    <div class="container-fluid mt-3">
+        <!-- Heading -->
+
+        <div class="card mb-4 wow fadeIn">
+            <!--Card content-->
+            <div class="card-body d-sm-flex justify-content-between">
+                <h4 class="mb-2 mb-sm-0 pt-1">
+                    <span>@Model.FirstOrDefault().cTipEncuesta</span>
+                </h4>
+            </div>
+        </div>
+        @foreach (var item in Model)
+        {
+        <div class="jumbotron">
+            <label style="font-weight: bold;"> (@item.iNumPregunta)</label>
+            <label style="font-weight: bold;">@item.cPregunta</label><br />
+            @foreach (var sub in item.SubPreguntas)
+            {
+
+                switch (item.cDesc)
+                {
+                    case "Texto":
+                        item.cDesc = "Texto";
+                        break;
+                    case "Check":
+                        item.cDesc = "Check";
+                        break;
+                    case "Radio":
+                        item.cDesc = "Radio";
+                        break;
+                    case "Dropdopwnlist":
+                        item.cDesc = "Dropdopwnlist";
+                        break;
+                    default:
+                        break;
+                }
+
+
+                <div class="col-md-6">
+                    <label class="radio">
+                        <input type="radio" name="pregunta1" id="sb1" value="@sub.iIdSubPregunta"> @sub.cSubPregunta
+                    </label>
+                </div>
+
+
+
+
+
+                @*if (item.iNumPregunta == 7)
+            {
+                <div class="col-md-6">
+                    <label class="radio">
+                        <input type="text" name="pregunta1" id="sb1" value="">
+                    </label>
+                </div>
+            }
+            else
+            {
+                <div class="col-md-6">
+                    <label class="radio">
+                        <input type="radio" name="pregunta1" id="sb1" value="@sub.iIdSubPregunta"> @sub.cSubPregunta
+                    </label>
+                </div>
+            }*@
+            }
+        </div>
+        }
+
+
+    </div>
+</main>
