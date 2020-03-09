@@ -8,7 +8,7 @@
     <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/css/mdb.min.css" rel="stylesheet" />
     <link href="~/Content/css/style.min.css" rel="stylesheet" />
-
+  
     <title>Encuetas</title>
 </head>
 <body class="grey lighten-3">
@@ -30,7 +30,7 @@
                     <li class="nav-item">
                         <a class="nav-link waves-effect" style="color:#FFB718" href="@Url.Action("Page", "AdminPage")">
                             Encuestas
-                          
+
                         </a>
                     </li>
                     <li class="nav-item">
@@ -107,12 +107,14 @@
     <script src="~/Content/js/addons/datatables.min.js"></script>
 
     <script src="~/Content/js/Sumate.js"></script>
-
+    <script src="~/Content/js/Wizscript.js"></script>
     <!-- Initializations -->
     <script type="text/javascript">
         // Animations initialization
         new WOW().init();
     </script>
+
+    @RenderSection("scripts", required: false)
     <script>
 
         $(document).ready(function () {
