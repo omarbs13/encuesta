@@ -8,7 +8,7 @@ namespace WebEncuesta.Models
     public class TipoEncuesta
     {
 
-
+        public int iIdPregunta { get; set; }
         public string cTipEncuesta { get; set; }
         public int iNumPregunta { get; set; }
         public string cPregunta { get; set; }
@@ -27,6 +27,7 @@ namespace WebEncuesta.Models
 
     public class Pregunta
     {
+        public int iIdPregunta { get; set; }
         public string cTipEncuesta { get; set; }
         public int iNumPregunta { get; set; }
         public string cPregunta { get; set; }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -38,13 +39,13 @@ namespace WebEncuesta.Controllers
             while (obtener.Read()) // Mientras, lee mas de uno
             {
                 TipoEncuesta lista = new TipoEncuesta();
-
-                lista.cTipEncuesta = obtener.GetString(0);
-                lista.iNumPregunta = obtener.GetInt32(1);
-                lista.cPregunta = obtener.GetString(2);
-                lista.iIdSubPregunta = obtener.GetInt32(3);
-                lista.cSubPregunta = obtener.GetString(4);
-                lista.cDesc = obtener.GetString(5);
+                lista.iIdPregunta = obtener.GetInt32(0);
+                lista.cTipEncuesta = obtener.GetString(1);
+                lista.iNumPregunta = obtener.GetInt32(2);
+                lista.cPregunta = obtener.GetString(3);
+                lista.iIdSubPregunta = obtener.GetInt32(4);
+                lista.cSubPregunta = obtener.GetString(5);
+                lista.cDesc = obtener.GetString(6);
                 TipEncuesta.Add(lista); //Agregamos y Guardamos, retornando a la lista
 
             }
@@ -60,17 +61,18 @@ namespace WebEncuesta.Controllers
                 {
                     var pregunta = new Pregunta
                     {
-                        cTipEncuesta=item.cTipEncuesta,
-                        iNumPregunta=item.iNumPregunta,
+                        iIdPregunta = item.iIdPregunta,
+                        cTipEncuesta = item.cTipEncuesta,
+                        iNumPregunta = item.iNumPregunta,
                         cPregunta = item.cPregunta,
-                        SubPreguntas=new List<SubPregunta>(),
+                        SubPreguntas = new List<SubPregunta>(),
                         cDesc = item.cDesc
                     };
                     foreach (var sub in TipEncuesta.Where(x => x.iNumPregunta == item.iNumPregunta))
                     {
                         pregunta.SubPreguntas.Add(new SubPregunta
                         {
-                            iIdSubPregunta=sub.iIdSubPregunta,
+                            iIdSubPregunta = sub.iIdSubPregunta,
                             cSubPregunta = sub.cSubPregunta
                         });
                     }
@@ -85,6 +87,46 @@ namespace WebEncuesta.Controllers
 
 
             return preguntasList;// TipEncuesta.FirstOrDefault().Preguntas.AddRange(preguntasList);  // Retornamos lista
+        }
+
+
+        public JsonResult SaveSurvey(string sugerencia, string[] subPreguntas)
+        {
+            bool success = false;
+            //var respuestas = new List<Respuesta>();
+            foreach (var item in subPreguntas)
+            {
+
+                string idSubPregunta = item.Split('_').Last();
+
+                //respuestas.Add(new
+                //{ fkSubpregunta = int.Parse(idSubPregunta);
+                //cRespuesta = true;
+                //dFecha = DateTime.today();
+                //numerodeEMpleado = 2333; });
+
+
+
+            /*Crear modelo de respuesta
+             modificar ó crear un nuevo SP para insertar en respuesta con parametro tipo tabla
+             analizar si es factible un SP o Entity Framework
+             si se puede evitar el cambio de los circulos de las preguntas*/
+
+            }
+            try
+            {
+                success = true;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+
+
+            return Json(success, JsonRequestBehavior.AllowGet);
+
         }
     }
 }

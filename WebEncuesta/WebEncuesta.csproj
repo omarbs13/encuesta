@@ -418,6 +418,13 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Content\StyleMenu.css" />
     <Content Include="Content\js\Sumate.js" />
+    <Content Include="SweetAlert\enhancers.js" />
+    <Content Include="SweetAlert\globalState.js" />
+    <Content Include="SweetAlert\instanceMethods.js" />
+    <Content Include="SweetAlert\privateProps.js" />
+    <Content Include="SweetAlert\staticMethods.js" />
+    <Content Include="SweetAlert\SweetAlert.js" />
+    <Content Include="SweetAlert\sweetalert2.js" />
     <Content Include="Web References\LoginWS\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -426,6 +433,11 @@
     <Content Include="Views\AdminPage\Usuario.cshtml" />
     <Content Include="Views\AdminPage\Page.cshtml" />
     <Content Include="Views\EncuestaPage\EnPage.cshtml" />
+    <Content Include="SweetAlert\variables.scss" />
+    <Content Include="SweetAlert\toasts.scss" />
+    <Content Include="SweetAlert\sweetalert2.scss" />
+    <Content Include="SweetAlert\mixins.scss" />
+    <Content Include="SweetAlert\animations.scss" />
     <None Include="Web References\LoginWS\Service.disco" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
