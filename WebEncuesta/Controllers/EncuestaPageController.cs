@@ -92,6 +92,8 @@ namespace WebEncuesta.Controllers
 
         public JsonResult SaveSurvey(string sugerencia, string[] subPreguntas)
         {
+            List<Respuesta> respuesta = new List<Respuesta>();
+
             bool success = false;
             //var respuestas = new List<Respuesta>();
             foreach (var item in subPreguntas)
