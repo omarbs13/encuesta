@@ -11,6 +11,13 @@ namespace WebEncuesta.Controllers
 {
     public class EncuestaPageController : Controller
     {
+        private readonly SqlConnection _con = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString);
+        public ActionResult Index()
+        {
+
+            return View(ObtenerEncuesta(1));
+        }
+
         // GET: EncuestaPage
         public ActionResult EnPage(int iIdEncuesta)
         {
@@ -22,7 +29,7 @@ namespace WebEncuesta.Controllers
         [HttpPost]
         public List<Pregunta> ObtenerEncuesta(int iIdEncuesta)
         {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString); // Cadena de conexion
+            // Cadena de conexion
 
 
             List<TipoEncuesta> TipEncuesta = new List<TipoEncuesta>();
@@ -32,8 +39,8 @@ namespace WebEncuesta.Controllers
             cmd.CommandText = "Encuesta.ObtEncuesta";
             cmd.Parameters.Add(new SqlParameter("@iIdEncuesta", SqlDbType.Int));
             cmd.Parameters["@iIdEncuesta"].Value = iIdEncuesta;
-            cmd.Connection = conn;
-            conn.Open();
+            cmd.Connection = _con;
+            _con.Open();
             SqlDataReader obtener = cmd.ExecuteReader();  // Leeemos
 
             while (obtener.Read()) // Mientras, lee mas de uno
@@ -93,42 +100,63 @@ namespace WebEncuesta.Controllers
         public JsonResult SaveSurvey(string sugerencia, string[] subPreguntas)
         {
             List<Respuesta> respuesta = new List<Respuesta>();
-
             bool success = false;
-            //var respuestas = new List<Respuesta>();
             foreach (var item in subPreguntas)
             {
-
                 string idSubPregunta = item.Split('_').Last();
 
-                //respuestas.Add(new
-                //{ fkSubpregunta = int.Parse(idSubPregunta);
-                //cRespuesta = true;
-                //dFecha = DateTime.today();
-                //numerodeEMpleado = 2333; });
-
-
-
-            /*Crear modelo de respuesta
-             modificar ó crear un nuevo SP para insertar en respuesta con parametro tipo tabla
-             analizar si es factible un SP o Entity Framework
-             si se puede evitar el cambio de los circulos de las preguntas*/
-
+                respuesta.Add(new Respuesta
+                {
+                    fkSubPregunta = int.Parse(idSubPregunta),
+                    cRespuesta = idSubPregunta.Equals("1") ? sugerencia : "True",
+                    dFecha = DateTime.Now,
+                    cEmail = "email.com"
+                });
             }
+            if (!string.IsNullOrEmpty(sugerencia))
+            {
+                respuesta.Add(new Respuesta
+                {
+                    fkSubPregunta = 1,
+                    cRespuesta = sugerencia,
+                    dFecha = DateTime.Now,
+                    cEmail = "email.com"
+                });
+            }
+
             try
             {
+                var dt = respuesta.ToDataTable();
+
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = "usp_InsertResp";
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        SqlParameter parameter;
+
+                        parameter = command.Parameters.AddWithValue("@TVP", dt);
+
+                        parameter.SqlDbType = SqlDbType.Structured;
+                        parameter.TypeName = "dbo.TRepuesta";
+
+                        command.ExecuteNonQuery();
+                    }
+                }
                 success = true;
             }
             catch (Exception ex)
             {
-
-                throw;
+                success = false;
             }
-
-
 
             return Json(success, JsonRequestBehavior.AllowGet);
 
         }
+
+
     }
 }
