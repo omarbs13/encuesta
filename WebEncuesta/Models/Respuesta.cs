@@ -10,8 +10,8 @@ namespace WebEncuesta.Models
 
         public DateTime dFecha { get; set; }
 
-        public int fkSubPregunta { get; set; }
-
         public string cEmail { get; set; }
+
+        public int fkSubPregunta { get; set; }
     }
 }
