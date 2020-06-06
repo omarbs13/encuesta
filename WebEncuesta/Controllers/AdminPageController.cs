@@ -7,12 +7,14 @@ using System.Data;
 
 namespace WebEncuesta.Controllers
 {
+   [Authorize]
     public class AdminPageController : Controller
     {
 
         // GET: AdminPage
         public ActionResult Page()
         {
+            var s =Helper.GetUser();
             return View(ListarEncuesta());
         }
 
@@ -39,6 +41,7 @@ namespace WebEncuesta.Controllers
                 lista.iCantPregunta = obtener.GetInt32(2);
                 lista.cDescripcion = obtener.GetString(3);
                 lista.bStatus = obtener.GetBoolean(4);
+                lista.Contestada = obtener.GetInt32(5);
                 ListadeEncuesta.Add(lista);//Agregamos y Guardamos, retornando a la lista
 
             }

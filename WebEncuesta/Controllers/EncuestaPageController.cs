@@ -110,7 +110,7 @@ namespace WebEncuesta.Controllers
                     fkSubPregunta = int.Parse(idSubPregunta),
                     cRespuesta = idSubPregunta.Equals("1") ? sugerencia : "True",
                     dFecha = DateTime.Now,
-                    cEmail = "email.com"
+                    cEmail = Helper.GetUser().Email
                 });
             }
             if (!string.IsNullOrEmpty(sugerencia))
@@ -120,7 +120,7 @@ namespace WebEncuesta.Controllers
                     fkSubPregunta = 1,
                     cRespuesta = sugerencia,
                     dFecha = DateTime.Now,
-                    cEmail = "email.com"
+                    cEmail = Helper.GetUser().Email
                 });
             }
 

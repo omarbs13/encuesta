@@ -134,6 +134,7 @@
     <Compile Include="Models\Encuesta.cs" />
     <Compile Include="Models\Respuesta.cs" />
     <Compile Include="Models\TipoEncuesta.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -458,7 +459,7 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
     <None Include="Web References\LoginWS\Service.wsdl" />
   </ItemGroup>
   <ItemGroup>

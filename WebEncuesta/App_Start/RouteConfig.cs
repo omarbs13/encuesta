@@ -16,7 +16,7 @@ namespace WebEncuesta
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "AdminPage", action = "Page", id = UrlParameter.Optional }
+                defaults: new { controller = "Login", action = "Login", id = UrlParameter.Optional }
             );
         }
     }

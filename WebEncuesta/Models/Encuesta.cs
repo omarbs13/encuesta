@@ -12,6 +12,7 @@ namespace WebEncuesta.Models
         public int iCantPregunta { get; set; }
         public string cDescripcion { get; set; }
         public bool bStatus { get; set; }
+        public int Contestada { get; set; }
     } 
 
 }

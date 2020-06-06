@@ -3,27 +3,40 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebEncuesta.Models;
 
 namespace WebEncuesta.Controllers
 {
     public class LoginController : Controller
-        // GET: Loginer
+    // GET: Loginer
     {
-        public ActionResult Index()
+        public ActionResult Login()
         {
-            
+
             return View();
         }
 
         // : Consumimos el web services
-        [HttpPost,Route("Login/PostLogin")]
+        [HttpPost, Route("Login/PostLogin")]
         public string PostLogin(string usuario, string password)
         {
             LoginWS.Service1 ser = new LoginWS.Service1();
-            string s = ser.login(usuario, password);
+            string s = "Bienvenido";// ser.login(usuario, password);
+            if (s.Equals("Bienvenido"))
+            {
+                User user = new User
+                {
+                    Email = usuario,
+                    Name = "Omar Ceron",
+                    Username = "oceron"
+                };
+
+                Helper.AddUserToSession(user);
+            }
+
             return s;
         }
-        
-        
+
+
     }
 }
