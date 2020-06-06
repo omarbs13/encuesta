@@ -1,6 +1,24 @@
+SELECT * 
+from Respuesta
+
+SELECT *
+from Pregunta
+
+SELECT * 
+from SubPregunta
+
+DELETE FROM SubPregunta
+DELETE FROM Respuesta
+
+DBCC CHECKIDENT ('SubPregunta', RESEED, 0);
+DBCC CHECKIDENT ('Respuesta', RESEED, 0);
+////////////////////////////////////////////
+1
+DELETE FROM SubPregunta
+2
 DBCC CHECKIDENT ('SubPregunta', RESEED, 0);
 
-
+3
 despues inserts
 
 
@@ -212,9 +230,7 @@ insert into subpregunta (cSubPregunta,bStatus,fkPregunta) values('Ni de Acuerdo 
 insert into subpregunta (cSubPregunta,bStatus,fkPregunta) values('En Desacuerdo',1,45);
 insert into subpregunta (cSubPregunta,bStatus,fkPregunta) values('Totalmente en Desacuerdo',1,45);
 
-
-
-
+/////////////////////////////////////////////////////////
 CREATE TYPE TRepuesta AS TABLE
 (	
 	[cRespuesta] [nvarchar](300) NOT NULL,
@@ -222,8 +238,6 @@ CREATE TYPE TRepuesta AS TABLE
 	[fkSubPregunta] [int] NOT NULL,
 	[cEmail] [varchar](max) NULL	
 )
-
-
 
 
 
@@ -237,6 +251,33 @@ CREATE PROCEDURE dbo. usp_InsertResp
             , dFecha
             , fkSubPregunta
             , cEmail
+         )
+      SELECT *
+      FROM @TVP;
+
+////////////////////////////////////////////////////
+
+CREATE TYPE RespuestaTableType AS TABLE
+(	
+	[cRespuesta] [nvarchar](300) NOT NULL,
+	[dFecha] [date] NOT NULL,
+	[cEmail] [varchar](max) NULL,
+        [fkSubPregunta] [int] NOT NULL
+)
+
+
+
+
+CREATE PROCEDURE [dbo].[sp_InsertRespuesta]
+   @TVP RespuestaTableType READONLY
+      AS
+      SET NOCOUNT ON
+      INSERT INTO Respuesta
+         (
+            cRespuesta
+            , dFecha
+            , cEmail
+            , fkSubPregunta
          )
       SELECT *
       FROM @TVP;

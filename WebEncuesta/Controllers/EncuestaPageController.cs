@@ -108,7 +108,7 @@ namespace WebEncuesta.Controllers
                 respuesta.Add(new Respuesta
                 {
                     fkSubPregunta = int.Parse(idSubPregunta),
-                    cRespuesta = idSubPregunta.Equals("1") ? sugerencia : "True",
+                    cRespuesta = "True",
                     dFecha = DateTime.Now,
                     cEmail = "email.com"
                 });
@@ -133,7 +133,7 @@ namespace WebEncuesta.Controllers
                     connection.Open();
                     using (SqlCommand command = connection.CreateCommand())
                     {
-                        command.CommandText = "usp_InsertResp";
+                        command.CommandText = "sp_InsertRespuesta";
                         command.CommandType = CommandType.StoredProcedure;
 
                         SqlParameter parameter;
@@ -141,7 +141,7 @@ namespace WebEncuesta.Controllers
                         parameter = command.Parameters.AddWithValue("@TVP", dt);
 
                         parameter.SqlDbType = SqlDbType.Structured;
-                        parameter.TypeName = "dbo.TRepuesta";
+                        parameter.TypeName = "dbo.RespuestaTableType";
 
                         command.ExecuteNonQuery();
                     }
