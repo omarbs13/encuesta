@@ -3,7 +3,9 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 ALTER PROCEDURE [Encuesta].[SelEncuesta]
-
+	(
+	@cEmail nvarchar(100)
+	)
 AS
 BEGIN
 
@@ -16,6 +18,8 @@ BEGIN
             p.iIdPregunta = sp.fkPregunta
         left join Respuesta r ON
             sp.iIdSubPregunta   = r.fkSubPregunta
+      where r.cEmail=@cEmail or r.cEmail is null
     group by e.iIdEncuesta, e.cTipEncuesta, e.iCantPregunta, e.cDescripcion, e.bStatus
 END
 GO
+
