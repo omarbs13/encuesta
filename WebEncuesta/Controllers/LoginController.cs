@@ -27,8 +27,8 @@ namespace WebEncuesta.Controllers
                 User user = new User
                 {
                     Email = usuario,
-                    Name = "Omar Ceron",
-                    Username = "oceron"
+                    Name = usuario,
+                    Username = usuario
                 };
 
                 Helper.AddUserToSession(user);
@@ -37,6 +37,13 @@ namespace WebEncuesta.Controllers
             return s;
         }
 
+        [HttpPost, Route("/Login/LogOut")]
+        public string LogOut()
+        {
+            string s = "logout";
+            Helper.DestroyUserSession();
+            return s;
+        }
 
     }
 }

@@ -34,24 +34,30 @@
 
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link waves-effect" style="color:#FFB718" href="@Url.Action("Usuario", "AdminPage")">
-                            Home
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link waves-effect" style="color:#FFB718" href="#">
-                            Datos
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link waves-effect" style="color:#FFB718" href="#">
-                            Sucursal
-                        </a>
-                    </li>
+                    @*<li class="nav-item">
+                            <a class="nav-link waves-effect" style="color:#FFB718" href="@Url.Action("Usuario", "AdminPage")">
+                                Home
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link waves-effect" style="color:#FFB718" href="#">
+                                Datos
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link waves-effect" style="color:#FFB718" href="#">
+                                Sucursal
+                            </a>
+                        </li>*@
                 </ul>
                 <!-- Right -->
-
+                <label>
+                    @if (Helper.ExistUserInSession())
+                    {
+                        <i class="fa fa-user-circle"></i>
+                        <span>@Helper.GetUser().Email</span>
+                    }
+                </label>
             </div>
         </div>
     </nav>
@@ -63,19 +69,19 @@
         </a>
         <div class="list-group list-group-flush">
             <a href="@Url.Action("Page", "AdminPage")" class="list-group-item" style="color:#006140; background:#FFB718">
-                <i class="fas fa-chart-pie mr-3"></i>Encuestas
+                <i class="fa fa-newspaper-o"></i> Encuestas
             </a>
-            <a href="#" class="list-group-item list-group-item-action waves-effect" style="color:#006140">
-                <i class="fas fa-user mr-3"></i>Home
-            </a>
-            <a href="#" class="list-group-item list-group-item-action waves-effect" style="color:#006140">
-                <i class="fas fa-table mr-3"></i>Datos
-            </a>
-            <a href="#" class="list-group-item list-group-item-action waves-effect" style="color:#006140">
-                <i class="fas fa-map mr-3"></i>Sucursal
-            </a>
-            <a href="@Url.Action("Index", "Login")" class="list-group-item list-group-item-action waves-effect" style="color:#006140">
-                <i class="fas fa-map mr-3"></i>Salir
+            @*<a href="#" class="list-group-item list-group-item-action waves-effect" style="color:#006140">
+                    <i class="fas fa-user mr-3"></i>Home
+                </a>
+                <a href="#" class="list-group-item list-group-item-action waves-effect" style="color:#006140">
+                    <i class="fas fa-table mr-3"></i>Datos
+                </a>
+                <a href="#" class="list-group-item list-group-item-action waves-effect" style="color:#006140">
+                    <i class="fas fa-map mr-3"></i>Sucursal
+                </a>*@
+            <a @*href="#"*@ onclick="session()" class="list-group-item list-group-item-action waves-effect" style="color:#006140">
+                <i class="fa fa-mail-reply-all"></i> Salir
             </a>
         </div>
     </div>
@@ -118,6 +124,19 @@
 
     @RenderSection("scripts", required: false)
     <script>
+
+    function session() {
+
+                $.ajax({
+                    url: "/Login/LogOut",
+                    type: "POST",
+                    success: function (res) {
+                            window.location.href = '@Url.Action("Login", "Login")';
+                    }
+
+                });
+
+        }
 
         $(document).ready(function () {
             // $('#tblPersona').DataTable();

@@ -9,9 +9,11 @@ using WebEncuesta.Models;
 
 namespace WebEncuesta.Controllers
 {
+    [Authorize]
     public class EncuestaPageController : Controller
     {
         private readonly SqlConnection _con = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString);
+               
         public ActionResult Index()
         {
 

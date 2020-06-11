@@ -14,7 +14,6 @@ namespace WebEncuesta.Controllers
         // GET: AdminPage
         public ActionResult Page()
         {
-            var s =Helper.GetUser();
             return View(ListarEncuesta());
         }
 
@@ -42,6 +41,7 @@ namespace WebEncuesta.Controllers
                 lista.cDescripcion = obtener.GetString(3);
                 lista.bStatus = obtener.GetBoolean(4);
                 lista.Contestada = obtener.GetInt32(5);
+                lista.cEmail = obtener.GetString(6);
                 ListadeEncuesta.Add(lista);//Agregamos y Guardamos, retornando a la lista
 
             }

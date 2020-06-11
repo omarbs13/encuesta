@@ -13,6 +13,8 @@ namespace WebEncuesta.Models
         public string cDescripcion { get; set; }
         public bool bStatus { get; set; }
         public int Contestada { get; set; }
+
+        public string cEmail { get; set; }
     } 
 
 }
