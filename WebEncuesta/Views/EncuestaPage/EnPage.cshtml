@@ -97,6 +97,8 @@
                                     @if (Model.Last().iIdPregunta == item.iIdPregunta)
                                     {
                                         <button class="btn btn-primary btn-lg pull-right" id="btnSave" type="button">Envíar</button>
+                                        <input type="hidden" id="@item.iIdPregunta" class="btnSaveButton" />
+                                        <input type="hidden" id="@item.cDesc" class="isTexto" />
                                     }
                                     else
 
@@ -108,27 +110,27 @@
                             </div>
 
                             <div class="modal fade" id="mostrarmodal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <img class="imagen" src="~/Content/imagotipo oficial-01.png" />
-                                </div>
-                                <div class="modal-body">
-                                    <h5 class="text-justify">
-                                        Por favor, dedica unos minutos a completar esta encuesta.
-                                        La información obtenida es de mucha importancia para la empresa.
-                                        Tus respuestas serán tratadas de forma <b>CONFIDENCIAL</b> Y <b>ANÓNIMA</b>
-                                        y seran analizadas de forma agregada.
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <img class="imagen" src="~/Content/imagotipo oficial-01.png" />
+                                        </div>
+                                        <div class="modal-body">
+                                            <h5 class="text-justify">
+                                                Por favor, dedica unos minutos a completar esta encuesta.
+                                                La información obtenida es de mucha importancia para la empresa.
+                                                Tus respuestas serán tratadas de forma <b>CONFIDENCIAL</b> Y <b>ANÓNIMA</b>
+                                                y seran analizadas de forma agregada.
 
-                                    </h5><br />
-                                    <h5 class="text-center"><b><i> ¡ GRACIAS !</i></b></h5>
-                                </div>
-                                <div class="modal-footer">
-                                    <a href="#" data-dismiss="modal" class="btn btn-default">Cerrar</a>
+                                            </h5><br />
+                                            <h5 class="text-center"><b><i> ¡ GRACIAS !</i></b></h5>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a href="#" data-dismiss="modal" class="btn btn-default">Cerrar</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
                         </div>
                     </div>
@@ -177,22 +179,39 @@
                 //})
                 var sugerencia = $('#txtSugerencia').val();
 
+                var idPregunta = $('.btnSaveButton').attr("id");
+                var idText = $('.isTexto').attr("id");
+                console.log(idPregunta);
+                console.log(idText);
+                var isValidTo = false;
+
+                if (idText=='Texto') {
+                    isValidTo = true;
+                }
+                else {
+                    isValidTo = IsValid(idPregunta);
+                }
 
 
-                $.ajax({
+                if (isValidTo) {
+                     $.ajax({
                     url: "SaveSurvey",
                     type: "POST",
                     data: { sugerencia: sugerencia, subPreguntas: values },
                     success: function (res) {
-                        Swal.fire('Encuesta guardada')
-                        window.location.href = '@Url.Action("Page", "AdminPage")';
+                        Swal.fire({allowOutsideClick:false,text:'Encuesta guardada'}).then((result) => {
+                          if (result.value) {
+                              window.location.href = '@Url.Action("Page", "AdminPage")';
+                          }
+                        })
+                       // window.location.href = '@Url.Action("Page", "AdminPage")';
                     },
                     error: function (res) {
                         Swal.fire('Error al guardar')
                     }
 
                 });
-
+                }
 
             });
             var navListItems = $('div.setup-panel div a'),
